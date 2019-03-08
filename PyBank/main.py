@@ -6,7 +6,7 @@ import os # file management
 import csv # CSV read/write
 import statistics # lies, damned lies, etc.
 
-csvpath = os.path.join('Resources','budget_data.csv')
+csvpath = os.path.join('Resources','budget_data.csv') # assign variable to path of input file
 
 date = [] # month-year
 pl = [] # monthly profit/loss for month in current row
@@ -26,7 +26,7 @@ first_loop = True # set to false after first row of CSV file is read
 with open(csvpath, 'r', newline='') as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
     csv_header = next(csvreader) # skip header row
-    for row in csvreader:
+    for row in csvreader: # loop through every row
         date.append(row[0]) # populate list of dates
         pl.append(row[1]) # populate list of profits/losses
         if first_loop == False: # once we've read two rows of data...
@@ -56,8 +56,8 @@ print('Average Change: $'+'{:,.2f}'.format(avg_change))
 print('Greatest Increase in Profits: $'+'{:,.2f}'.format(max_increase)+' ('+max_increase_month+')')
 print('Greatest Decrease in Profits: $'+'{:,.2f}'.format(max_decrease)+' ('+max_decrease_month+')') 
 
-# output results to file
-text_file = open("PyBank_output_PBL.txt", "w")
+# output results to text file
+text_file = open("PyBank_output_PBL.txt", "w") # create text file in same folder as main.py, assign variable to path
 text_file.write('Financial Analysis\n')
 text_file.write('----------------------------\n')
 text_file.write('Total Months: '+str(months_total)+'\n')
@@ -65,4 +65,4 @@ text_file.write('Total: $'+'{:,.2f}'.format(pl_total)+'\n')
 text_file.write('Average Change: $'+'{:,.2f}'.format(avg_change)+'\n')
 text_file.write('Greatest Increase in Profits: $'+'{:,.2f}'.format(max_increase)+' ('+max_increase_month+')\n')
 text_file.write('Greatest Decrease in Profits: $'+'{:,.2f}'.format(max_decrease)+' ('+max_decrease_month+')\n') 
-text_file.close()
+text_file.close() # if you open it, close it
