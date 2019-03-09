@@ -55,14 +55,18 @@
 # Trilogy Education Services © 2018. All Rights Reserved.
 
 
+# Brickey LeQuire
+# Homework Assignment #3, Part 2: PyPoll
+
 import os
 import csv
 import pandas
 
 csvpath = os.path.join('Resources/election_data.csv') 
 with open(csvpath) as csvfile:
-    df = pandas.read_csv(csvfile)
+    df = pandas.read_csv(csvfile, encoding='utf-8')
+    print(df.head)
 
-print(df)
+# print(df)
 
 

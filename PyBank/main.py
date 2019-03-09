@@ -42,7 +42,7 @@ avg_change = statistics.mean(pl_change_list) # caluclate average monthly change
 max_increase = max(pl_change_list) # determine greatest monthly increase
 max_decrease = min(pl_change_list) # determine greatest monthly decrease
 max_increase_index = pl_change_list.index(max_increase) # get index number
-max_decrease_index = pl_change_list.index(max_decrease)
+max_decrease_index = pl_change_list.index(max_decrease) # ...s
 max_increase_month = date[(max_increase_index+1)] # use index number to identify month/year
 max_decrease_month = date[(max_decrease_index+1)] # (+1 because we don't have pl_change for first month)
 
