@@ -33,7 +33,7 @@ with open(csvpath, 'r', newline='') as csvfile:
             pl_change = float(row[1]) - pl_prev_row # calculate difference between current month and previous
             pl_change_list.append(pl_change) # and store in a list
         pl_total = pl_total + float(row[1]) # keep running total of net profits/losses
-        pl_prev_row = float(row[1]) # next month, this month will be last month
+        pl_prev_row = float(row[1]) # next month, this month's profit/loss will be last month's profit/loss
         if first_loop == True: # the first loop is followed by...
             first_loop = False # a bunch of not-first loops
 
