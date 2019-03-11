@@ -59,14 +59,40 @@
 # Homework Assignment #3, Part 2: PyPoll
 
 import os
-import csv
 import pandas
 
-csvpath = os.path.join('Resources/election_data.csv') 
-with open(csvpath) as csvfile:
-    df = pandas.read_csv(csvfile, encoding='utf-8')
-    print(df.head)
+csv_path = os.path.join('Resources/election_data.csv') 
+df = pandas.read_csv(csv_path, encoding='utf-8')
+candidate_list = df['Candidate'].unique()
+total_votes_cast = df['Voter ID'].count()
+print('Candidates:')
+print(candidate_list)
+print()
+print('Total Votes Cast:')
+print(total_votes_cast)
+votes_for_candidate = df['Candidate'].value_counts()
+votes_for_candidate.columns = ['Candidate','Votes Received']
+print()
+print('Votes Received:')
+print(votes_for_candidate)
+# votes_for_candidate_list = [votes_for_candidate]
+# print(votes_for_candidate_list)
+candidate_percentage = df['Candidate'].value_counts()/total_votes_cast*100
+candidate_percentage.columns = ['Candidate','Percent of Vote']
+print()
+print('Percentage of Vote:')
+print(candidate_percentage)
+print()
+print('Winner:')
+print()
+print(max(votes_for_candidate).row)
+# print(max(candidate_percentage))
+# candidate_percentage_list = [candidate_percentage]
+# print('{:.2%}'.format(candidate_percentage_list))
+# candidate_percentage_list = candidate_percentage[1]
+# for candidate in candidate_percentage_list:
+ #   print("{:.2%}".format(candidate_percentage_list))
 
-# print(df)
-
-
+# for candidate in candidate_list:
+  #  candidate_percentage = str("{:.2%}"+float((votes_for_candidate/total_votes_cast)*100)
+  #  print("{:.2%}".format(candidate_percentage)
