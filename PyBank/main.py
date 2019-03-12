@@ -57,7 +57,7 @@ print('Greatest Increase in Profits: $'+'{:,.2f}'.format(max_increase)+' ('+max_
 print('Greatest Decrease in Profits: $'+'{:,.2f}'.format(max_decrease)+' ('+max_decrease_month+')') 
 
 # output results to text file
-text_file = open("PyBank_output_PBL.txt", "w") # create text file in same folder as main.py, assign variable to path
+text_file = open("PyBank_output_PBL.txt", "w") # create text file in same folder as main.py, assign it a variable
 text_file.write('Financial Analysis\n')
 text_file.write('----------------------------\n')
 text_file.write('Total Months: '+str(months_total)+'\n')

@@ -1,147 +1,55 @@
-## PyPoll
-
-# ![Vote-Counting](Images/Vote_counting.jpg)
-
-# * In this challenge, you are tasked with helping a small, rural town modernize its vote-counting process. (Up until now, Uncle Cleetus had been trustfully tallying them one-by-one, but unfortunately, his concentration isn't what it used to be.)
-
-# * You will be give a set of poll data called [election_data.csv](PyPoll/Resources/election_data.csv). 
-# The dataset is composed of three columns: `Voter ID`, `County`, and `Candidate`. Your task is to create a Python script that analyzes the votes and calculates each of the following:
-
- #  * The total number of votes cast
-
- # * A complete list of candidates who received votes
-
- # * The percentage of votes each candidate won
-
- # * The total number of votes each candidate won
-
- # * The winner of the election based on popular vote.
-
-# * As an example, your analysis should look similar to the one below:
-
-#  ```text
-#  Election Results
-# -------------------------
-# Total Votes: 3521001
-# -------------------------
-# Khan: 63.000% (2218231)
-# Correy: 20.000% (704200)
-# Li: 14.000% (492940)
-# O'Tooley: 3.000% (105630)
-# -------------------------
-# Winner: Khan
-# -------------------------
-# ```
-#
-# * In addition, your final script should both print the analysis to the terminal and export a text file with the results.
-## Hints and Considerations
-
-# * Consider what we've learned so far. To date, we've learned how to import modules like `csv`; to read and write files in various formats; to store contents in variables, lists, and dictionaries; to iterate through basic data structures; and to debug along the way. Using what we've learned, try to break down you tasks into discrete mini-objectives. This will be a _much_ better course of action than attempting to Google Search for a miracle.
-
-# * As you will discover, for some of these challenges, the datasets are quite large. This was done purposefully, as it showcases one of the limits of Excel-based analysis. While our first instinct, as data analysts, is often to head straight into Excel, creating scripts in Python can provide us with more robust options for handling "big data".
-
-# * Your scripts should work for each dataset provided. Run your script for each dataset separately to make sure that the code works for different data.
-
-# * Feel encouraged to work in groups, but don't shortchange yourself by copying someone else's work. You get what you put in, and the art of programming is extremely unforgiving to moochers. Dig your heels in, burn the night oil, and learn this while you can! These are skills that will pay dividends in your future career.
-
-# * Start early, and reach out for help often! Challenge yourself to identify _specific_ questions for your instructors and TAs. Don't resign yourself to simply saying, "I'm totally lost." Come prepared to show your effort and thought patterns, we'll be happy to help along the way.
-
-# * Always commit your work and back it up with GitHub pushes. You don't want to lose hours of your work because you didn't push it to GitHub every half hour or so.
-
-#  * **Commit often**.
-
-## Copyright
-
-# Trilogy Education Services © 2018. All Rights Reserved.
-
-
 # Brickey LeQuire
 # Homework Assignment #3, Part 2: PyPoll
 
-import os
-import csv
-import numpy
-import operator
+import os # file management
+import csv # csv read/write
 
-voter_id = []
-county = []
-vote = []
-mydict = {}
+voter_id = [] # Voter ID (column 1)
+county = [] # County (column 2)
+vote = [] # Candidate voter selected (column 3)
+mydict = {} # dictionary to hold candidate names and total votes each received
+max_votes = 0 # greatest number of votes received by any one candidate
 
-csv_path = os.path.join('Resources/election_data.csv') 
-with open(csv_path, 'r', newline='') as csvfile:
-    csvreader = csv.reader(csvfile, delimiter=',')
-    csv_header = next(csvreader) # get column headers from first row
+csv_path = os.path.join('Resources/election_data.csv') # open CSV file and assign it a variable
+with open(csv_path, 'r', newline='') as csvfile: # open the file
+    csvreader = csv.reader(csvfile, delimiter=',') # tell Python how to read the file
+    csv_header = next(csvreader) # get column headers from first row (skips data import for header row)
     for row in csvreader: # loop through all subsequent rows
         voter_id.append(row[0]) # retrieve each voter's voter ID number
         county.append(row[1]) # retrieve each voter's county of residence
         vote.append(row[2]) # retrieve each voter's choice of candidate
-        candidate = row[2]
-        if candidate in mydict.keys():
-            mydict[candidate] +=1 
-        else:
-            mydict[candidate] = 1
-print(mydict)
- # print "blah"
-# else:
-  # print "boo"
-    #    mydict[row[2]]=
+        candidate = row[2] # candidate voted for in this row
+        if candidate in mydict.keys(): # if candidate's name is already in dictionary...
+            mydict[candidate] +=1 # increase that candidate's vote tally by 1
+        else: # otherwise...
+            mydict[candidate] = 1 # set that candidate's vote tally to 1
+        if mydict[candidate] > max_votes: # if candidate's vote tally > than current value of max_votes...
+            max_votes = mydict[candidate] # set max_votes to equal votes received by this candidate
+            winner = candidate # set winner to candidate's name
+votes_cast=(len(vote)) #  The total number of votes cast
 
-# votes_cast=(len(vote)) #  * The total number of votes cast
-# candidates = [numpy.unique(vote, return_counts=True)]
-# print(candidates)
-# for candidate in candidates:
-#     votes_for_candidate(candidate) = candidates.count(candidate)
-#    print(votes_for_candidate)
+# output results to text file, screen
 
-# ranking = sorted(candidates, key=(candidates[1]), reverse=True)
-
-
-
-# num_candidates = len(candidates)
-# for candidate in candidates:
-  #  votes_for_candidate = vote.count(candidate)
-   # print(candidate)
-    # print(votes_for_candidate)
-
-
-
-# print(str(results[0])+str(results[1]))
-
-
-
-# df = pandas.read_csv(csv_path, encoding='utf-8')
-# candidate_list = df['Candidate'].unique()
-#total_votes_cast = df['Voter ID'].count()
-# print('Candidates:')
-#print(candidate_list)
- #print()
-#print('Total Votes Cast:')
-#print(total_votes_cast)
-#votes_for_candidate = df['Candidate'].value_counts()
-#votes_for_candidate.columns = ['Candidate','Votes Received']
-#print()
-#print('Votes Received:')
-#print(votes_for_candidate)
-# votes_for_candidate_list = [votes_for_candidate]
-# print(votes_for_candidate_list)
-#candidate_percentage = df['Candidate'].value_counts()/total_votes_cast*100
-#candidate_percentage.columns = ['Candidate','Percent of Vote']
-#print()
-#print('Percentage of Vote:')
-#print(candidate_percentage)
-#print()
-#print('Winner:')
-#print()
-#print(max(votes_for_candidate).row)
-# print(max(candidate_percentage))
-# candidate_percentage_list = [candidate_percentage]
-# print('{:.2%}'.format(candidate_percentage_list))
-# candidate_percentage_list = candidate_percentage[1]
-# for candidate in candidate_percentage_list:
- #   print("{:.2%}".format(candidate_percentage_list))
-
-# for candidate in candidate_list:
-  #  candidate_percentage = str("{:.2%}"+float((votes_for_candidate/total_votes_cast)*100)
-  #  print("{:.2%}".format(candidate_percentage)
-  #
+text_file = open("PyPoll_output_PBL.txt", "w") # create text file in same folder as main.py, assign variable to path
+print('Election Results')
+text_file.write('Election Results')
+print('-------------------------')
+text_file.write('-------------------------')
+print('Total Votes: ' + str(votes_cast))
+text_file.write('Total Votes: ' + str(votes_cast))
+print('-------------------------')
+text_file.write('-------------------------')
+for i in mydict: # loop through dictionary
+    candidate_name = str(i) # get candidate names
+    votes_received = str(mydict[i]) # get number of votes candidate received
+    percentage = mydict[i]/votes_cast*100 # divide by total votes cast, multiply by 100 to get percentage
+    percentage_string = str('{:,.2f}'.format(percentage)) # format percentage with 2 places after decimal
+    print(candidate_name + ' : ' + votes_received + ' ' + '(' + percentage_string + '%)')
+    text_file.write(candidate_name + ' : ' + votes_received + ' ' + '(' + percentage_string + '%)')
+print('-------------------------')
+text_file.write('-------------------------')
+print('Winner: ' + winner)
+text_file.write('Winner: ' + winner)
+print('-------------------------')
+text_file.write('-------------------------')
+text_file.close() # if you open it, close it
