@@ -59,33 +59,81 @@
 # Homework Assignment #3, Part 2: PyPoll
 
 import os
-import pandas
+import csv
+import numpy
+import operator
+
+voter_id = []
+county = []
+vote = []
+mydict = {}
 
 csv_path = os.path.join('Resources/election_data.csv') 
-df = pandas.read_csv(csv_path, encoding='utf-8')
-candidate_list = df['Candidate'].unique()
-total_votes_cast = df['Voter ID'].count()
-print('Candidates:')
-print(candidate_list)
-print()
-print('Total Votes Cast:')
-print(total_votes_cast)
-votes_for_candidate = df['Candidate'].value_counts()
-votes_for_candidate.columns = ['Candidate','Votes Received']
-print()
-print('Votes Received:')
-print(votes_for_candidate)
+with open(csv_path, 'r', newline='') as csvfile:
+    csvreader = csv.reader(csvfile, delimiter=',')
+    csv_header = next(csvreader) # get column headers from first row
+    for row in csvreader: # loop through all subsequent rows
+        voter_id.append(row[0]) # retrieve each voter's voter ID number
+        county.append(row[1]) # retrieve each voter's county of residence
+        vote.append(row[2]) # retrieve each voter's choice of candidate
+        candidate = row[2]
+        if candidate in mydict.keys():
+            mydict[candidate] +=1 
+        else:
+            mydict[candidate] = 1
+print(mydict)
+ # print "blah"
+# else:
+  # print "boo"
+    #    mydict[row[2]]=
+
+# votes_cast=(len(vote)) #  * The total number of votes cast
+# candidates = [numpy.unique(vote, return_counts=True)]
+# print(candidates)
+# for candidate in candidates:
+#     votes_for_candidate(candidate) = candidates.count(candidate)
+#    print(votes_for_candidate)
+
+# ranking = sorted(candidates, key=(candidates[1]), reverse=True)
+
+
+
+# num_candidates = len(candidates)
+# for candidate in candidates:
+  #  votes_for_candidate = vote.count(candidate)
+   # print(candidate)
+    # print(votes_for_candidate)
+
+
+
+# print(str(results[0])+str(results[1]))
+
+
+
+# df = pandas.read_csv(csv_path, encoding='utf-8')
+# candidate_list = df['Candidate'].unique()
+#total_votes_cast = df['Voter ID'].count()
+# print('Candidates:')
+#print(candidate_list)
+ #print()
+#print('Total Votes Cast:')
+#print(total_votes_cast)
+#votes_for_candidate = df['Candidate'].value_counts()
+#votes_for_candidate.columns = ['Candidate','Votes Received']
+#print()
+#print('Votes Received:')
+#print(votes_for_candidate)
 # votes_for_candidate_list = [votes_for_candidate]
 # print(votes_for_candidate_list)
-candidate_percentage = df['Candidate'].value_counts()/total_votes_cast*100
-candidate_percentage.columns = ['Candidate','Percent of Vote']
-print()
-print('Percentage of Vote:')
-print(candidate_percentage)
-print()
-print('Winner:')
-print()
-print(max(votes_for_candidate).row)
+#candidate_percentage = df['Candidate'].value_counts()/total_votes_cast*100
+#candidate_percentage.columns = ['Candidate','Percent of Vote']
+#print()
+#print('Percentage of Vote:')
+#print(candidate_percentage)
+#print()
+#print('Winner:')
+#print()
+#print(max(votes_for_candidate).row)
 # print(max(candidate_percentage))
 # candidate_percentage_list = [candidate_percentage]
 # print('{:.2%}'.format(candidate_percentage_list))
@@ -96,3 +144,4 @@ print(max(votes_for_candidate).row)
 # for candidate in candidate_list:
   #  candidate_percentage = str("{:.2%}"+float((votes_for_candidate/total_votes_cast)*100)
   #  print("{:.2%}".format(candidate_percentage)
+  #
